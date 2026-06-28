@@ -1,100 +1,48 @@
-# Stickers-Memee-Studio
-🎨 AI Studio - Éditeur multimédia IA pour créer des mèmes et stickers. Templates prédéfinis, filtres créatifs, commandes vocales, analyse faciale IA, overlays personnalisables. React Native cross-platform (Android/iOS). MIT License.
+# AI STUDIO - Générateur de Memes Multimodal [ICT202 G1/G2]
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## 📝 Présentation
+Application mobile cross-platform (React Native) permettant de générer du contenu humoristique (mèmes/stickers) en utilisant l'intelligence artificielle (Groq Llama 3 & Pollinations AI).
 
-# Getting Started
+## 🚀 Fonctionnalités
+### Core (Obligatoire)
+- **Context Reader** : Analyse une discussion textuelle pour suggérer un mème.
+- **Voice-to-Meme** : Transcription audio (simulée) et enrichissement par IA.
+- **Status Remixer** : Import d'images et génération automatique de légendes "POV".
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+### Bonus
+- **Génération d'images par IA** : Création de fonds de mèmes à partir de prompts textuels.
+- **Localisation Culturelle** : Switch permettant d'activer l'humour et l'argot local (Cameroun/Afrique).
+- **Studio d'édition** : Ajout d'accessoires (lunettes, laser eyes) et filtres (Néon, Glitch).
 
-## Step 1: Start Metro
+## 🛠️ Stack Technique
+- **Frontend** : React Native (0.86), TypeScript, Animated API.
+- **Backend** : Node.js, Express.js, Multer (gestion fichiers).
+- **IA** : Groq API (Llama 3), Pollinations AI (Diffusion).
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## ⚙️ Installation
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
+### 1. Serveur Backend
+```bash
+cd backend
+npm install
+# Assurez-vous que le fichier .env contient votre GROQ_API_KEY
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+### 2. Application Mobile
+```bash
+# Dans le dossier racine
+npm install
+npm start
+# Appuyez sur 'a' pour lancer sur Android (Emulateur ou physique via USB)
 ```
 
-### iOS
+## 🌐 Configuration Réseau
+Pour le test sur téléphone physique :
+1. Connectez le PC et le téléphone sur le même Wi-Fi.
+2. L'IP actuelle configurée est : `192.168.228.175`.
+3. Modifiez `API_URL` dans `App.tsx` si votre adresse IP change.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 👥 Équipe
+**Groupe ICT202 G2 / G1**
+🏆 Projet de Développement Mobile - 2024

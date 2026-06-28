@@ -47,7 +47,8 @@ const uploadAudio = multer({
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-// Helper : appel chat completion Groq
+// Ce helper centralise les appels Groq pour éviter de dupliquer la logique de formatage des messages
+// entre les différents endpoints texte, audio et vision.
 async function groqChat(userMessage, systemPrompt = null) {
   const messages = [];
   if (systemPrompt) messages.push({ role: 'system', content: systemPrompt });
@@ -70,7 +71,8 @@ async function groqChat(userMessage, systemPrompt = null) {
   return response.data.choices[0].message.content.trim().replace(/"/g, '');
 }
 
-// Helper : transcription audio via Whisper (Groq)
+// La transcription est déléguée à Whisper via Groq pour éviter d’intégrer un moteur de speech-to-text
+// local sur le téléphone et garder le traitement IA côté serveur.
 async function transcribeAudio(filePath) {
   const formData = new FormData();
   formData.append('file', fs.createReadStream(filePath));
@@ -124,6 +126,8 @@ app.post('/api/context-reader', async (req, res) => {
 // ─────────────────────────────────────────────
 // 2. Voice-to-Meme (Vocal) — VRAI Whisper
 // ─────────────────────────────────────────────
+// Le flux vocal suit un pipeline simple : réception du fichier, transcription, génération de légende,
+// puis nettoyage du média pour éviter d’encombrer le stockage local.
 app.post('/api/voice-to-meme', uploadAudio.single('audio'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, error: 'Aucun fichier audio reçu.' });
@@ -169,6 +173,8 @@ app.post('/api/voice-to-meme', uploadAudio.single('audio'), async (req, res) => 
 // ─────────────────────────────────────────────
 // 3. Status Remixer (Image) — VRAI analyse vision
 // ─────────────────────────────────────────────
+// L’image n’est pas conservée après analyse : elle sert uniquement de contexte à l’IA et est supprimée
+// immédiatement pour garder le backend léger et sans stockage persistant.
 app.post('/api/remix-status', uploadImage.single('image'), async (req, res) => {
   const { culturalMode } = req.body;
 

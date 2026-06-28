@@ -73,7 +73,8 @@ export default function App() {
     }
   };
 
-  // Factory pour créer un calque de texte mobile
+  // Chaque calque de texte doit conserver son comportement de déplacement et sa sélection propre,
+  // donc il est créé comme un objet autonome plutôt qu’en simple chaîne de caractères.
   const createTextLayer = useCallback((text, initialX = 20, initialY = CANVAS_SIZE / 2) => {
     const id = Math.random().toString(36).substr(2, 9);
     const pan = new Animated.ValueXY({x: initialX, y: initialY});
@@ -95,7 +96,7 @@ export default function App() {
     return {id, type: 'text', content: text.toUpperCase(), pan, panResponder};
   }, []);
 
-  // ─── CORE 1: Context Reader (Analyse texte) ───
+  // Le flux texte transforme une saisie libre en une proposition de légende directement exploitable par le canvas.
   const analyzeContext = async () => {
     if (!commandInput.trim()) return;
     setIsProcessing(true);
@@ -116,7 +117,8 @@ export default function App() {
     }
   };
 
-  // ─── CORE 2: Voice-to-Meme (VRAI enregistrement) ───
+  // L’enregistrement audio suit un flux asynchrone : l’interface doit réagir immédiatement,
+  // puis le fichier est envoyé au backend une fois l’arrêt détecté.
   const startRecording = async () => {
     const hasPermission = await requestMicPermission();
     if (!hasPermission) {
@@ -205,7 +207,8 @@ export default function App() {
     }
   };
 
-  // ─── CORE 3: Status Remixer (Image + analyse vision IA) ───
+  // L’image est d’abord affichée comme contexte visuel, puis la légende IA est ajoutée en arrière-plan
+  // pour donner un retour rapide à l’utilisateur sans bloquer l’interface.
   const remix = () => {
     launchImageLibrary({mediaType: 'photo', includeBase64: false}, async (res) => {
       if (res.didCancel || !res.assets) return;

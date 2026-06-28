@@ -1,75 +1,236 @@
-# AI STUDIO - Generateur de Memes Multimodal [ICT202 G1/G2]
+# AI Studio - Générateur de memes multimodal
 
-Le code source du serveur (Backend) se trouve dans le dossier /backend situe a la racine du projet.
+AI Studio est une application mobile cross-platform développée avec React Native, conçue pour générer des créations humoristiques à partir de texte, d’audio et d’images. Le projet combine une interface mobile moderne à un backend Node.js/Express qui appelle des services d’intelligence artificielle pour produire des légendes de mèmes, transcrire des voix et analyser des images.
 
-## Presentation du Projet
-Ce projet consiste en une application mobile cross-platform developpee avec React Native, integree a un serveur backend Express.js. L'objectif est de fournir un outil capable de generer du contenu humoristique de type meme en exploitant des services d'intelligence artificielle pour le texte, l'audio et l'image.
+## Vue d’ensemble
 
-## Fonctionnalites Principales (Core)
+Cette application permet à un utilisateur de :
+- saisir un texte et obtenir une légende de mème générée par IA,
+- enregistrer une voix pour obtenir une transcription et une légende sarcastique,
+- choisir une photo depuis la galerie pour générer une légende à partir du contenu visuel,
+- générer une image de fond à partir d’un prompt textuel,
+- manipuler les textes directement sur un canvas interactif.
 
-### Context Reader (Texte)
-Analyse d'un extrait de discussion ou d'un texte saisi par l'utilisateur. Le backend utilise l'API Groq (modele Llama 3.3) pour interpreter le contexte et suggerer une legende adaptee.
+Le projet a été conçu comme une application de démonstration pédagogique pour l’ICT202, avec une architecture simple et facilement extensible.
 
-### Voice-to-Meme (Audio)
-Enregistrement d'une note vocale via le microphone de l'appareil. Le fichier est transmis au backend pour transcription et generation d'un texte de meme sarcastique base sur le contenu detecte.
+## Fonctionnalités implémentées
 
-### Status Remixer (Image)
-Importation d'une image depuis la galerie du telephone. L'application envoie l'image au backend pour generer une legende de type POV humoristique generee par l'IA.
+### 1. Analyse de contexte (texte)
+L’utilisateur saisit un prompt ou un contexte. Le backend envoie ce texte à l’API Groq et retourne une légende courte et humoristique adaptée au contexte.
 
-## Fonctionnalites Avancees (Bonus)
+### 2. Voice-to-Meme (audio)
+L’application permet d’enregistrer un audio depuis le microphone. Le fichier est envoyé au backend, transcrit via Whisper puis transformé en légende de mème.
 
-### Generation d'images par IA
-Integration de Pollinations AI pour creer des images de fond uniques a partir d'un prompt textuel fourni par l'utilisateur.
+### 3. Status Remixer (image)
+L’utilisateur peut sélectionner une image depuis la galerie. Le backend l’analyse avec une IA de vision et génère une légende humoristique de type “POV”.
 
-### Localisation Culturelle
-Option permettant d'activer un mode d'humour specifique. L'IA adapte ses reponses en utilisant des expressions et des references culturelles locales (Cameroun et Afrique centrale).
+### 4. Génération d’images IA
+À partir d’un prompt texte, l’application peut produire une image générative via Pollinations AI et l’afficher comme fond du canvas.
 
-## Architecture et Stack Technique
+### 5. Interface interactive
+Le canvas permet :
+- de déplacer les textes par glisser-déposer,
+- de les sélectionner,
+- de les supprimer,
+- de remettre à zéro la composition.
 
-### Frontend Mobile
-- Framework : React Native 0.86
-- Langage : TypeScript
-- Gestion des gestes : PanResponder pour le deplacement des calques.
-- Image : react-native-image-picker.
+### 6. Mode culturel
+Un toggle permet d’ajuster le style du humour vers un ton plus local, avec des références culturelles adaptées.
 
-### Backend (API Gateway)
-- Runtime : Node.js
-- Framework : Express.js
-- Gestion de fichiers : Multer.
-- Client HTTP : Axios.
+## Stack technique
+
+### Frontend mobile
+- React Native 0.86
+- TypeScript
+- React Native Image Picker
+- React Native Audio Recorder Player
+- React Native FS
+- React Native Linear Gradient
+- React Native SVG
+- React Native Safe Area Context
+
+### Backend
+- Node.js
+- Express.js
+- Multer
+- Axios
+- dotenv
+- FormData
 
 ### Services IA
-- NLP / Texte : Groq Cloud API (Llama 3.3 70b).
-- Image : Pollinations AI (Diffusion).
+- Groq API pour le traitement texte, audio et vision
+- Pollinations AI pour la génération d’images
 
-## Installation et Configuration
+## Structure du projet
 
-### Pre-requis
-- Node.js (Version 22 ou superieure)
-- Android Studio / SDK Android
-- Une cle API Groq Cloud valide
+```text
+.
+├── App.tsx                  # Vue principale de l’application
+├── index.js                 # Point d’entrée React Native
+├── package.json             # Dépendances et scripts frontend
+├── app.json                 # Configuration de l’application
+├── android/                 # Projet natif Android
+├── ios/                     # Projet natif iOS
+├── backend/
+│   ├── index.js             # Serveur Express et endpoints API
+│   ├── package.json         # Dépendances backend
+│   └── uploads/             # Stockage temporaire des fichiers uploadés
+├── __tests__/
+│   └── App.test.tsx         # Test de base de l’application
+└── README.md
+```
 
-### Configuration du Backend
-1. Naviguer dans le dossier backend : cd backend
-2. Installer les dependances : npm install
-3. Creer un fichier .env et y ajouter la cle API :
-   GROQ_API_KEY=votre_cle_ici
-   PORT=3000
-4. Lancer le serveur : npm start
+## Prérequis
 
-### Configuration de l'Application Mobile
-1. Revenir a la racine du projet.
-2. Installer les dependances : npm install
-3. Dans le fichier App.tsx, verifier que la constante API_URL correspond a l'adresse IP de votre machine sur le reseau Wi-Fi (actuellement configuree sur 192.168.228.175).
-4. Lancer Metro Bundler : npm start
-5. Lancer l'application sur Android : npm run android
+Avant de lancer le projet, assurez-vous d’avoir :
+- Node.js 22.x ou plus
+- npm ou yarn
+- Android Studio avec SDK Android installé
+- Xcode (uniquement pour la cible iOS, sur macOS)
+- Un appareil Android/iPhone ou des émulateurs fonctionnels
+- Une clé API Groq valide
 
-## Guide d'utilisation
-1. Canvas : Appuyer sur un element textuel pour le selectionner et le deplacer.
-2. IA : Saisir un texte puis cliquer sur Analyse Texte ou Image IA.
-3. Reset : Utiliser le bouton RESET pour vider le canvas.
-4. Export : Cliquer sur Sauvegarder pour simuler l'enregistrement dans la galerie.
+## Configuration
 
-## Equipe
-Groupe ICT202 G2 / G1
-Projet de Developpement Mobile - 2024
+### 1. Backend
+Dans le dossier backend, créez un fichier .env avec la variable suivante :
+
+```env
+GROQ_API_KEY=votre_cle_api_groq
+PORT=3000
+```
+
+Ensuite installez les dépendances :
+
+```bash
+cd backend
+npm install
+```
+
+### 2. Frontend
+Depuis la racine du projet :
+
+```bash
+npm install
+```
+
+## Exécution en développement
+
+### Démarrer le backend
+```bash
+cd backend
+npm start
+```
+
+Le serveur sera accessible sur :
+- http://localhost:3000
+- http://<votre-ip-local>:3000
+
+### Démarrer l’application mobile
+Dans une autre fenêtre terminal :
+
+```bash
+npm start
+```
+
+Puis lancer l’application sur la plateforme souhaitée :
+
+```bash
+npm run android
+```
+
+ou
+
+```bash
+npm run ios
+```
+
+> Important : l’application frontend pointe vers une URL API définie dans App.tsx. Si vous utilisez un appareil physique ou un émulateur distant, mettez à jour la constante API_URL avec l’adresse IP locale de votre machine sur le même réseau.
+
+## Compilation et build
+
+### Android
+```bash
+npm run build:apk
+```
+
+Ou directement :
+
+```bash
+cd android
+./gradlew assembleDebug
+```
+
+### iOS
+Après installation des pods si nécessaire :
+
+```bash
+cd ios
+pod install
+cd ..
+npm run ios
+```
+
+## Dépendances principales
+
+### Frontend
+- @react-native/new-app-screen
+- react
+- react-native
+- react-native-audio-recorder-player
+- react-native-fs
+- react-native-image-picker
+- react-native-linear-gradient
+- react-native-safe-area-context
+- react-native-sound
+- react-native-svg
+
+### Backend
+- express
+- cors
+- dotenv
+- multer
+- axios
+- openai
+
+## Limitations actuelles
+
+Le projet est fonctionnel comme prototype, mais plusieurs limites restent visibles :
+- l’URL de l’API est codée en dur dans le frontend,
+- les fichiers uploadés sont stockés localement dans le backend,
+- il n’existe pas encore de base de données persistante,
+- la logique UI est concentrée dans un seul composant principal,
+- le système n’a pas encore de gestion avancée d’authentification ou de sessions,
+- les tests sont très basiques.
+
+## Améliorations futures
+
+Voici quelques pistes d’évolution :
+- modulariser l’interface en composants réutilisables,
+- ajouter une base de données pour sauvegarder les créations,
+- introduire un système d’authentification,
+- améliorer la gestion des erreurs et du fallback IA,
+- ajouter un export réel vers la galerie ou le partage,
+- permettre l’enregistrement et la lecture de créations multiples,
+- intégrer une vraie pipeline de production et de CI/CD.
+
+## Déploiement
+
+### Android
+1. Générer un build de débogage ou de release.
+2. Vérifier la signature Android et les variables de build.
+3. Installer l’APK sur un appareil ou le distribuer via un store interne.
+
+### iOS
+1. Configurer les profils de signature Apple.
+2. Vérifier les permissions microphone et photo.
+3. Builder l’application depuis Xcode et la distribuer via TestFlight ou l’App Store.
+
+## Auteurs
+
+Projet développé dans le cadre du cours ICT202 par l’équipe de développement du groupe G1/G2.
+
+## Licence
+
+Ce projet est fourni à des fins pédagogiques et de démonstration.
+

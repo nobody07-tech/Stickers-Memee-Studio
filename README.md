@@ -2,73 +2,67 @@
 
 Le code source du serveur (Backend) se trouve dans le dossier /backend situe a la racine du projet.
 
-## Presentation du Projet
-Ce projet consiste en une application mobile cross-platform developpee avec React Native, integree a un serveur backend Express.js. L'objectif est de fournir un outil capable de generer du contenu humoristique de type meme en exploitant des services d'intelligence artificielle pour le texte, l'audio et l'image.
+## 1. Presentation du Projet
+Ce projet est une application mobile developpee avec React Native (Frontend) et Node.js/Express (Backend). Elle permet la creation de memes via l'intelligence artificielle en traitant des donnees textuelles, audio et visuelles.
 
-## Fonctionnalites Principales (Core)
+## 2. Fonctionnalites Principales (Core)
 
 ### Context Reader (Texte)
-Analyse d'un extrait de discussion ou d'un texte saisi par l'utilisateur. Le backend utilise l'API Groq (modele Llama 3.3) pour interpreter le contexte et suggerer une legende adaptee.
+Analyse de texte saisi pour generer une legende humoristique adaptee. Utilise le modele Llama 3.3 via l'API Groq.
 
 ### Voice-to-Meme (Audio)
-Enregistrement d'une note vocale via le microphone de l'appareil. Le fichier est transmis au backend pour transcription et generation d'un texte de meme sarcastique base sur le contenu detecte.
+Enregistrement vocal traite par le modele Whisper (OpenAI via Groq) pour la transcription, suivi d'une generation de legende sarcastique.
 
 ### Status Remixer (Image)
-Importation d'une image depuis la galerie du telephone. L'application envoie l'image au backend pour generer une legende de type POV humoristique generee par l'IA.
+Analyse d'une image importee via le modele Llama Vision pour generer une legende de type "Point of View" (POV) coherente avec le contenu visuel.
 
-## Fonctionnalites Avancees (Bonus)
+## 3. Fonctionnalites Avancees (Bonus)
 
 ### Generation d'images par IA
-Integration de Pollinations AI pour creer des images de fond uniques a partir d'un prompt textuel fourni par l'utilisateur.
+Creation de fonds de memes originaux a partir de descriptions textuelles via Pollinations AI.
 
 ### Localisation Culturelle
-Option permettant d'activer un mode d'humour specifique. L'IA adapte ses reponses en utilisant des expressions et des references culturelles locales (Cameroun et Afrique centrale).
+Adaptation de l'humour et du vocabulaire aux references locales (Cameroun et Afrique Centrale) via des instructions specifiques envoyees aux modeles d'IA.
 
-## Architecture et Stack Technique
+## 4. Stack Technique
 
-### Frontend Mobile
-- Framework : React Native 0.86
-- Langage : TypeScript
-- Gestion des gestes : PanResponder pour le deplacement des calques.
-- Image : react-native-image-picker.
+### Frontend
+- React Native 0.86
+- TypeScript
+- Animated API (Mouvements fluides)
+- Image Picker (Gestion de la galerie)
 
-### Backend (API Gateway)
-- Runtime : Node.js
-- Framework : Express.js
-- Gestion de fichiers : Multer.
-- Client HTTP : Axios.
+### Backend
+- Node.js / Express
+- Multer (Gestion des uploads multimedias)
+- Groq Cloud SDK (Whisper, Llama 3.3, Llama Vision)
 
-### Services IA
-- NLP / Texte : Groq Cloud API (Llama 3.3 70b).
-- Image : Pollinations AI (Diffusion).
-
-## Installation et Configuration
-
-### Pre-requis
-- Node.js (Version 22 ou superieure)
-- Android Studio / SDK Android
-- Une cle API Groq Cloud valide
+## 5. Installation et Lancement
 
 ### Configuration du Backend
-1. Naviguer dans le dossier backend : cd backend
-2. Installer les dependances : npm install
-3. Creer un fichier .env et y ajouter la cle API :
-   GROQ_API_KEY=votre_cle_ici
-   PORT=3000
-4. Lancer le serveur : npm start
+1. Acceder au repertoire : `cd backend`
+2. Installer les modules : `npm install` # Installe Express, Multer, Axios et Dotenv
+3. Configurer les variables d'environnement :
+   Creer un fichier `.env` dans le dossier /backend avec :
+   `GROQ_API_KEY=votre_cle_api`
+   `PORT=3000`
+4. Demarrer le serveur : `npm start` # Le serveur ecoute sur le port 3000
 
-### Configuration de l'Application Mobile
-1. Revenir a la racine du projet.
-2. Installer les dependances : npm install
-3. Dans le fichier App.tsx, verifier que la constante API_URL correspond a l'adresse IP de votre machine sur le reseau Wi-Fi (actuellement configuree sur 192.168.228.175).
-4. Lancer Metro Bundler : npm start
-5. Lancer l'application sur Android : npm run android
+### Configuration du Frontend
+1. Revenir a la racine : `cd ..`
+2. Installer les dependances : `npm install` # Installe React Native et les plugins
+3. Configurer l'adresse IP :
+   Dans `App.tsx`, modifier la constante `API_URL` avec l'adresse IP locale du PC (ex: 192.168.228.175).
+4. Lancer Metro : `npm start` # Demarre le gestionnaire de paquets React Native
+5. Executer sur Android : `npm run android` # Compile et installe l'application sur l'appareil
 
-## Guide d'utilisation
-1. Canvas : Appuyer sur un element textuel pour le selectionner et le deplacer.
-2. IA : Saisir un texte puis cliquer sur Analyse Texte ou Image IA.
-3. Reset : Utiliser le bouton RESET pour vider le canvas.
-4. Export : Cliquer sur Sauvegarder pour simuler l'enregistrement dans la galerie.
+## 6. Guide de Demonstration
+1. Saisie : Entrer un contexte dans le champ texte.
+2. IA : Cliquer sur Analyse Texte pour une legende ou Image IA pour un fond.
+3. Vocal : Utiliser le bouton micro pour simuler/effectuer un enregistrement.
+4. Edition : Deplacer les textes sur le canvas avec le doigt. Selection par simple toucher.
+5. Reset : Bouton en haut a droite pour recommencer a zero.
+6. Export : Onglet Export pour sauvegarder la creation finale.
 
 ## Equipe
 Groupe ICT202 G2 / G1
